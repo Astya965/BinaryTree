@@ -19,14 +19,14 @@ type TTheme = {
 export const App = () => {
   const SPACE = " ";
   const [tree, setTree] = useState<TreeNode | null>(null);
+  const [, setReload] = useState<boolean>(false);
   const [theme, setTheme] = useState<TTheme | null>({ mainColor: `255, 0, 0` });
 
   const handleSpacebarEvent = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === SPACE) {
-        const number = getRandomNodeValue();
-        const newTree = structuredClone(insertNode(tree, number));
-        setTree(newTree);
+        insertNode(tree, getRandomNodeValue());
+        setReload((prev) => !prev);
       }
     },
     [tree]
